@@ -6,8 +6,7 @@
 
 # load packages
 library(reshape2)
-library(recount)
-install.packages("glmnet")
+#library(recount)
 library(glmnet)
 library(stringr)
 
@@ -16,7 +15,7 @@ library(stringr)
 #######
 # create folders
 getwd()
-setwd("~/Bureau/R/")
+setwd("~/R/")
 dir.create(file.path(getwd(), "model"), showWarnings = FALSE)
 dir.create(file.path(getwd(), "tmp"), showWarnings = FALSE)
 
