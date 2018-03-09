@@ -1,5 +1,5 @@
 
-NetBuilding <- function(NET,nblayers=3,FamilyGene=ImmunGenes){
+NetBuilding <- function(NET,nblayers=3,FamilyGene=NULL){
   ################
   # simplified
   # keep all genes at each layers and then filter those with feedbacks
@@ -26,7 +26,9 @@ NetBuilding <- function(NET,nblayers=3,FamilyGene=ImmunGenes){
           NETall<-rbind(NETall,FB)
         }
       }
-      NETall<-NETall[NETall$source_hgnc%in%ImmunGenes|NETall$target_hgnc%in%ImmunGenes,] # keep immunogenes only
+      if(length(FamilyGene)>0){
+        NETall<-NETall[NETall$source_hgnc%in%FamilyGene|NETall$target_hgnc%in%FamilyGene,]
+      }
       NETall<-rbind(NETall,NET) # restaure initial genes
       
       
@@ -46,7 +48,9 @@ NetBuilding <- function(NET,nblayers=3,FamilyGene=ImmunGenes){
           }
         }
         
-        NETall<-NETall[NETall$source_hgnc%in%ImmunGenes|NETall$target_hgnc%in%ImmunGenes,] # keep immunogenes only
+        if(length(FamilyGene)>0){
+          NETall<-NETall[NETall$source_hgnc%in%FamilyGene|NETall$target_hgnc%in%FamilyGene,] 
+        }        
         NETall<-rbind(NETall,NET) # restaure initial genes
       }
     }
