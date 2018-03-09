@@ -23,28 +23,28 @@ dir.create(file.path(getwd(), "tmp"), showWarnings = FALSE)
 # load data net and FamilyGenes
 list.files(paste(getwd(),"/data/",sep = ""))
 OMNI<-read.csv2(paste(getwd(),"/data/OMNI.csv",sep = ""), stringsAsFactors = F)
-ImmunGenes<-read.csv2(paste(getwd(),"/data/ImmunGenes.csv",sep = ""), stringsAsFactors = F)
-ImmunGenes<-unique(ImmunGenes$gene)
 
 #######
 # name your project
-NameProj<-"Immuno"
+NameProj<-"Angio"
 
 #######
 # select your genes manually
 # may propose a selection in a list
-GENESman<-c("PDCD1", "CD274", "CTLA4") #"EGFR
+GENESman<-c("VEGFA", "FGFR1", "PDGFRA") 
 
 #######
 # select the treatment targets manually
-treatmt<-c("CD274", "CTLA4") #"EGFR"
+treatmt<-c("VEGFA", "KDR") 
 treatmt<-paste(treatmt,"_TTT",sep = "")
 
 #######
 # define the gene family you want to keep
-ImmunGenes
+# you can check in msigdb for exhaustive list related to sepcific mecanisms, and put it into R/data/
+FamilyGene # a vector of names of all the genes your are interested in
 
 #### 
 # build NET
 NET<-OMNI[OMNI$source_hgnc%in%union(GENESman,gsub("_TTT","",treatmt))|OMNI$target_hgnc%in%union(GENESman,gsub("_TTT","",treatmt)),]
-# and go to NetBuilding()
+
+# and go to the Workflow.R page
