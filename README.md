@@ -1,5 +1,5 @@
 # ArtMolNet
 Build, simulate and optimise molecular networks
 
-Beguin with Welcome.R
+Begin with Welcome.R
 Continue with Workflow.R
