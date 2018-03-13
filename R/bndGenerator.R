@@ -132,19 +132,36 @@ bndGenerator <- function(NETall, NameProj, treatmt){
       bRule = FALSE # == indicates if the node is regulated by another or not
       firstReg = TRUE
       
-      SOU<-unlist(lapply(str_split(grep(target,nameReac,value = T),"_"),function(x)x[1]))
+     SOU<-unlist(lapply(str_split(grep(target,nameReac,value = T),"_"),function(x)x[1]))
       TAR<-unlist(lapply(str_split(grep(target,nameReac,value = T),"_"),function(x)x[3]))
       SOU1<-SOU[-setdiff(grep(target,SOU),grep(target,TAR))] # keep auto-regulated nodes
       INFL<-unlist(lapply(str_split(grep(target,nameReac,value = T),"_"),function(x)x[2]))
       INFL<-INFL[-setdiff(grep(target,SOU),grep(target,TAR))]
+      
       SOU1<-paste(ifelse(INFL=="INHIBIT","!",""),SOU1,sep = "")  
       SOU1
-      SOU1<-paste(paste(ifelse(INFL=="INHIBIT"," & "," | "),SOU1,sep = ""),collapse = "")
-      SOU1<-substr(SOU1,4,nchar(SOU1))
       
-      #SOU1<-paste(SOU1,collapse = ifelse(INFL=="INHIBIT"," & "," | "))
-
-      write(SOU1, file = fileName, append = TRUE)
+      if(length(grep("INHIB",INFL))>0){
+      # order by inhibition or activation
+      ORD <- order(INFL,decreasing = T)
+      INFL<-INFL[ORD]
+      SOU1 <- SOU1[ORD]
+      
+      # group inhibitors
+      SOUI<-SOU1[grep("INHIB",INFL)]
+      SOUA<-SOU1[grep("ACTIV",INFL)]
+      SOUI<-paste(SOUI,collapse = " & ")
+      if(length(SOUA)>0){
+        TOT<-paste("(", SOUI," & ", SOUA ,")",sep = "")
+        TOT<-paste(TOT,collapse = "|")
+      } else if(length(SOUA)==0){
+        TOT<-paste("(", SOUI,")",sep = "")
+      }
+      } else{
+        TOT<-paste("(", paste(SOU1,collapse = " | "),")",sep = "")
+      }
+      
+      write(TOT, file = fileName, append = TRUE)
 
       write(";", file = fileName, append = TRUE)
       write(paste("  rate_up = @logic ? $u_",target," : 0;",sep = ""), file = fileName, append = TRUE)
