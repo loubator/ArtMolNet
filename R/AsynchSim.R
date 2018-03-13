@@ -2,8 +2,6 @@ NETall<-data.frame(source_hgnc=c("G0","G1","G2","G0"),
            interaction_directed_signed=c("ACTIVATE","INHIBIT","ACTIVATE","ACTIVATE"),
            target_hgnc=c("G1","G2","G0","G2"))
 
-#DUPS<-NETall$target_hgnc[duplicated(NETall$target_hgnc)]
-#NETall[NETall$target_hgnc%in%DUPS,"LogicRule"]<-"OR"
 NETall[,"LogicRule"]<-"OR" # begin with OR connectors only
 NETall[NETall$interaction_directed_signed%in%"INHIBIT","LogicRule"]<-"AND"
 
@@ -12,22 +10,21 @@ Nspecies<-length(Species)
 
 # asynch
 
-#iStates<-round(runif(Nspecies, 0,1))
-#names(iStates)<-Species
-#iStates
 PossiStates<-expand.grid(rep(list(0:1), length(Species)))
 names(PossiStates)<-Species
 
 ###################
-  # do all in 1 loop
+  # do all in 1 function
   # order the vector
 
-iStates<-as.vector(PossiStates[2,])
-iStates
-ListAttractors<-list()
-for(i in seq(nrow(PossiStates))){
-  iStates<-as.vector(PossiStates[i,])
-  TotiState<-(as.data.frame(iStates))
+
+### with function
+ListAttractors <- split(PossiStates, seq(nrow(PossiStates)))
+
+lapply(ListAttractors,function(x){
+  iStates<-unlist(x)
+  
+  TotiState<-(as.data.frame(t(iStates),row.names = ""))
   while(!identical(paste(TotiState[nrow(TotiState),],collapse = ""),
                    paste(TotiState[nrow(TotiState)-2,],collapse = ""))|nrow(TotiState)<2){
     RandSpecie=sample(Species,1) # first one
@@ -65,7 +62,5 @@ for(i in seq(nrow(PossiStates))){
     }
     if(nrow(TotiState)>30){break}
   }
-  ListAttractors[[i]]<-  TotiState
-  
-}
-ListAttractors
+  TotiState
+}) 
