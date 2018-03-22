@@ -13,3 +13,6 @@ bndGenerator(NETall = NETall,NameProj = NameProj)
 
 # built .cfg in multiple steps
 timeMaxi<-FindMaxTime(NETall, NameProj, timeMaxi=100, NodeToEval=NULL)
+
+# plot your results
+PlotdensityNodesMBSS(nameSimIndiv)
