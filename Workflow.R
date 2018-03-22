@@ -1,5 +1,3 @@
-# A single fonction to perform the entire workflow
-
 # choose your paramaters
 # in Welcome
 
