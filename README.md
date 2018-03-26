@@ -1,4 +1,4 @@
-# ArtMolNet
+# AMoNet
 Build, simulate and optimise molecular networks
 
 Begin with Welcome.R
