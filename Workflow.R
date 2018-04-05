@@ -4,6 +4,9 @@
 # Cleaning the net
 NETall<-NetBuilding(NET = NET,nblayers = 3,FamilyGene =  NULL)
 
+# add weights
+NETall<-addWeights(NETall)
+
 #######
 # MaBoSS simulation
 # build .bnd
