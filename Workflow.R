@@ -20,6 +20,12 @@ BestAttract<-PlotAttractors(TotAttractors,PDF = T)
 SpeciesActivity<-plotProbaState(Species = union(NETall$source_hgnc,NETall$target_hgnc),
                TotAttractors = TotAttractors, Stochastic = F) 
 
+# draw and save the trajectories
+Path<-DrawPath(TotAttractors)
+
+# plot the cord plot for last or few last (NTrans) transition to attractors and
+# identify the species involved in last transitions
+Transition<-DissectPath(Path,NTrans=1) # long because of cordplot and for loop
 
 #######
 # MaBoSS simulation
