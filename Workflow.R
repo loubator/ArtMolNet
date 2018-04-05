@@ -7,6 +7,13 @@ NETall<-NetBuilding(NET = NET,nblayers = 3,FamilyGene =  NULL)
 # add weights
 NETall<-addWeights(NETall)
 
+# do simulations to defined attractors
+# speed up? Do proba on it # simplify to optimize ?
+# add rates to calculate speed of transition
+# add random number selection in the update <-> MaboSS ?
+TotAttractors<-BoolSimul(NETall,ASYNC = T, Boolean = F, NumiStates = 100)
+
+
 #######
 # MaBoSS simulation
 # build .bnd
