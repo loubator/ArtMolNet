@@ -13,6 +13,9 @@ NETall<-addWeights(NETall)
 # add random number selection in the update <-> MaboSS ?
 TotAttractors<-BoolSimul(NETall,ASYNC = T, Boolean = F, NumiStates = 100)
 
+# plot the attractors (in /tmp/attractor.pdf) and write table with best attractors
+BestAttract<-PlotAttractors(TotAttractors,PDF = T)
+
 
 #######
 # MaBoSS simulation
