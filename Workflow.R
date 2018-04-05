@@ -2,7 +2,7 @@
 # in Welcome
 
 # Cleaning the net
-NETall<-NetBuilding(NET = NET,nblayers = 3,FamilyGene = ImmunGenes)
+NETall<-NetBuilding(NET = NET,nblayers = 3,FamilyGene =  NULL)
 
 #######
 # MaBoSS simulation
