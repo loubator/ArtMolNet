@@ -61,9 +61,6 @@ NetBuilding <- function(NET,nblayers=3,FamilyGene=NULL){
     if(i==10){break}
   }
   
-  #write.csv2(NETall,"C:/Users/L_VERLINGUE/Desktop/ModelK/Roma/networkexpansion3_PDL1_PD1_CTLA4_flash.csv")
-  #write.csv2(NETall,"C:/Users/L_VERLINGUE/Desktop/ModelK/Roma/networkexpansion3_PDL1_PD1_CTLA4_flash_restricted.csv")
-  
   Nspecies<-c(1,2)
   while( length(unique(tail(round(Nspecies),n = 2)))!=1 )  {
     i=i+1
