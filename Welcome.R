@@ -1,21 +1,31 @@
+
 #######
-# welcome to ArtMolNet
-# Artificial Molecular Network building, simulation and optimisation
+# welcome to AMoNet
+# Artificial Molecular Network creator, simulation and optimisation
 # dedicated to anti-cancer treatments
 # Loic Verlingue, MD PhDc, DITEP, U900
 
-# load packages
+# load pack
 library(reshape2)
 #library(recount)
 library(glmnet)
 library(stringr)
+library(mgcv)
+library(rgl)
+library(circlize)
+library(parallel)
+library(MASS)
 
-# instal MaBoSS in the /tmp/ direction
+
+# + install MaBoSS and MBSS_FormatTable.pl in the R/ direction
+
+########
+# set directory
+setwd("C:/Users/L_VERLINGUE/Desktop/ModelK/Rpack/ArtMolNet/")
+getwd()
 
 #######
 # create folders
-getwd()
-setwd("~/R/")
 dir.create(file.path(getwd(), "model"), showWarnings = FALSE)
 dir.create(file.path(getwd(), "tmp"), showWarnings = FALSE)
 
@@ -31,20 +41,14 @@ NameProj<-"Angio"
 #######
 # select your genes manually
 # may propose a selection in a list
-GENESman<-c("VEGFA", "FGFR1", "PDGFRA") 
+GENESman<-c("VEGFA", "EGFR")
 
 #######
 # select the treatment targets manually
-treatmt<-c("VEGFA", "KDR") 
+treatmt<-c("VEGFA", "EGFR")
 treatmt<-paste(treatmt,"_TTT",sep = "")
-
-#######
-# define the gene family you want to keep
-# you can check in msigdb for exhaustive list related to sepcific mecanisms, and put it into R/data/
-FamilyGene # a vector of names of all the genes your are interested in
 
 #### 
 # build NET
 NET<-OMNI[OMNI$source_hgnc%in%union(GENESman,gsub("_TTT","",treatmt))|OMNI$target_hgnc%in%union(GENESman,gsub("_TTT","",treatmt)),]
-
-# and go to the Workflow.R page
+# and go to NetBuilding()
